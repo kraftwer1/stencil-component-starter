@@ -1,32 +1,53 @@
-import { Component, Prop } from '@stencil/core';
-import { format } from '../../utils/utils';
+import { Component, State, Element } from "@stencil/core";
+import { createStore, Store, Reducer } from "redux";
+import { SelectState, Actions } from "../types";
+
+const reducer: Reducer<SelectState, Actions> = (state, action): SelectState => {
+  switch (action.type) {
+    case "SET_ONE":
+      return { ...state, one: action.one }
+  }
+
+  return state;
+}
 
 @Component({
-  tag: 'my-component',
-  styleUrl: 'my-component.css',
+  tag: "my-component",
   shadow: true
 })
 export class MyComponent {
-  /**
-   * The first name
-   */
-  @Prop() first: string;
 
-  /**
-   * The middle name
-   */
-  @Prop() middle: string;
+  private store: Store<SelectState, Actions>;
 
-  /**
-   * The last name
-   */
-  @Prop() last: string;
+  private initialState: SelectState = {
+    one: "ooone",
+    two: "two"
+  }
 
-  private getText(): string {
-    return format(this.first, this.middle, this.last);
+  @State() one
+
+  @Element() el: HTMLMyComponentChildElement;
+
+  componentWillLoad() {
+    this.store = (this.el as any).__store = createStore(reducer, this.initialState); // FIXME any
+
+    this.one = this.store.getState().one // FIXME property bindings?
+
+    this.store.subscribe(() => {
+      this.one = this.store.getState().one // FIXME property bindings?
+    })
   }
 
   render() {
-    return <div>Hello, World! I'm {this.getText()}</div>;
+    return (
+      <div>
+        <div>I'm the parent! {this.one}</div>
+
+        <my-component-case>
+          <slot />
+        </my-component-case>
+      </div>
+    );
   }
+
 }

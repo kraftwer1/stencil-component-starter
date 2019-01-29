@@ -12,45 +12,41 @@ import '@stencil/core';
 
 export namespace Components {
 
-  interface MyComponent {
-    /**
-    * The first name
-    */
-    'first': string;
-    /**
-    * The last name
-    */
-    'last': string;
-    /**
-    * The middle name
-    */
-    'middle': string;
-  }
-  interface MyComponentAttributes extends StencilHTMLAttributes {
-    /**
-    * The first name
-    */
-    'first'?: string;
-    /**
-    * The last name
-    */
-    'last'?: string;
-    /**
-    * The middle name
-    */
-    'middle'?: string;
-  }
+  interface MyComponentCase {}
+  interface MyComponentCaseAttributes extends StencilHTMLAttributes {}
+
+  interface MyComponentChild {}
+  interface MyComponentChildAttributes extends StencilHTMLAttributes {}
+
+  interface MyComponent {}
+  interface MyComponentAttributes extends StencilHTMLAttributes {}
 }
 
 declare global {
   interface StencilElementInterfaces {
+    'MyComponentCase': Components.MyComponentCase;
+    'MyComponentChild': Components.MyComponentChild;
     'MyComponent': Components.MyComponent;
   }
 
   interface StencilIntrinsicElements {
+    'my-component-case': Components.MyComponentCaseAttributes;
+    'my-component-child': Components.MyComponentChildAttributes;
     'my-component': Components.MyComponentAttributes;
   }
 
+
+  interface HTMLMyComponentCaseElement extends Components.MyComponentCase, HTMLStencilElement {}
+  var HTMLMyComponentCaseElement: {
+    prototype: HTMLMyComponentCaseElement;
+    new (): HTMLMyComponentCaseElement;
+  };
+
+  interface HTMLMyComponentChildElement extends Components.MyComponentChild, HTMLStencilElement {}
+  var HTMLMyComponentChildElement: {
+    prototype: HTMLMyComponentChildElement;
+    new (): HTMLMyComponentChildElement;
+  };
 
   interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {}
   var HTMLMyComponentElement: {
@@ -59,10 +55,14 @@ declare global {
   };
 
   interface HTMLElementTagNameMap {
+    'my-component-case': HTMLMyComponentCaseElement
+    'my-component-child': HTMLMyComponentChildElement
     'my-component': HTMLMyComponentElement
   }
 
   interface ElementTagNameMap {
+    'my-component-case': HTMLMyComponentCaseElement;
+    'my-component-child': HTMLMyComponentChildElement;
     'my-component': HTMLMyComponentElement;
   }
 

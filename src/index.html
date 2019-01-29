@@ -9,7 +9,15 @@
 </head>
 <body>
 
-  <my-component first="Stencil" last="'Don't call me a framework' JS"></my-component>
+  <my-component>
+    <div>
+      <my-component-child></my-component-child>
+    </div>
+  </my-component>
+
+  <my-component>
+    <my-component-child></my-component-child>
+  </my-component>
 
 </body>
 </html>

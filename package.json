@@ -16,9 +16,11 @@
     "test": "stencil test --spec --e2e",
     "test.watch": "stencil test --spec --e2e --watchAll"
   },
-  "dependencies": {},
+  "dependencies": {
+    "redux": "^4.0.1"
+  },
   "devDependencies": {
-    "@stencil/core": "~0.16.2"
+    "@stencil/core": "0.15.2"
   },
   "license": "MIT"
 }
